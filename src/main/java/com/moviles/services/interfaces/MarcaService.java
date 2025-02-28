@@ -1,4 +1,6 @@
 package com.moviles.services.interfaces;
 
-public interface MarcaService {
+import com.moviles.model.entities.Marca;
+
+public interface MarcaService extends CrudInterface<Marca, Long> {
 }
