@@ -1,4 +1,6 @@
 package com.moviles.services.interfaces;
 
-public interface MovilService {
+import com.moviles.model.entities.Movil;
+
+public interface MovilService extends CrudInterface<Movil, Long> {
 }

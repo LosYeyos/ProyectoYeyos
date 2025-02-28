@@ -1,4 +1,4 @@
 package com.moviles.services.interfaces;
 
-public interface ProcesadorService {
+public interface ProcesadorService extends CrudInterface<Procesador, Long> {
 }

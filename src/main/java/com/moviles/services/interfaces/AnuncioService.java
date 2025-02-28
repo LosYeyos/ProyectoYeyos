@@ -1,5 +1,7 @@
 package com.moviles.services.interfaces;
 
 
-public interface AnuncioService {
+import com.moviles.model.entities.Anuncio;
+
+public interface AnuncioService extends CrudInterface<Anuncio, Long> {
 }

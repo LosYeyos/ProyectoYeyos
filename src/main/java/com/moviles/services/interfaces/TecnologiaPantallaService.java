@@ -1,4 +1,6 @@
 package com.moviles.services.interfaces;
 
-public interface TecnologiaPantallaService {
+import com.moviles.model.entities.TecnologiaPantalla;
+
+public interface TecnologiaPantallaService extends CrudInterface<TecnologiaPantalla, Long> {
 }
