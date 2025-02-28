@@ -1,4 +1,4 @@
-package com.moviles.repositorios;
+package com.moviles.repositories;
 
 import com.moviles.model.entities.Movil;
 import org.springframework.data.jpa.repository.JpaRepository;

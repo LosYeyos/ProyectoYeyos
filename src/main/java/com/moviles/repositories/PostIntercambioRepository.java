@@ -1,7 +1,6 @@
-package com.moviles.repositorios;
+package com.moviles.repositories;
 
 import com.moviles.model.entities.PostIntercambio;
-import com.moviles.model.entities.PostVenta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
