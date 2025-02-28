@@ -1,8 +1,7 @@
 package com.moviles.model.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import com.moviles.model.entities.compositekeys.PostVentaId;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -12,9 +11,12 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class PostVenta {
     @Id
-    @NonNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
     @OneToOne
-    private Anuncio id;
+    @JoinColumn(name = "anuncio_id")
+    private Anuncio anuncio;
 
     @NonNull
     private double precio;

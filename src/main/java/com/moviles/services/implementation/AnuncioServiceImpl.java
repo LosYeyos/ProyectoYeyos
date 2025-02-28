@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Service
 public class AnuncioServiceImpl implements AnuncioService {
-    private final PostVentaRepository postVentaRepository;
-    private final PostIntercambioRepository postIntercambioRepository;
-    private final MovilRepository movilRepository;
-    private final UsuarioServiceImpl userServiceImpl;
+    private PostVentaRepository postVentaRepository;
+    private PostIntercambioRepository postIntercambioRepository;
+    private MovilRepository movilRepository;
+    private UsuarioServiceImpl userServiceImpl;
 
     public AnuncioServiceImpl(PostVentaRepository postVentaRepository, PostIntercambioRepository postIntercambioRepository, UsuarioServiceImpl userServiceImpl, MovilRepository movilRepository) {
         this.postVentaRepository = postVentaRepository;
