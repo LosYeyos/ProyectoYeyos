@@ -2,10 +2,10 @@ package com.moviles.services.implementation;
 
 import com.moviles.model.entities.Marca;
 import com.moviles.repositories.MarcaRepository;
-import com.moviles.services.interfaces.AnuncioService;
 import com.moviles.services.interfaces.MarcaService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,12 +18,17 @@ public class MarcaServiceImpl implements MarcaService {
 
     @Override
     public Optional<Marca> findById(Long id) {
-        return Optional.empty();
+        return marcaRepository.findById(id);
     }
 
     @Override
-    public boolean create(Marca entity) {
-        return false;
+    public List<Marca> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(Marca entity) {
+        return marcaRepository.save(entity);
     }
 
     @Override

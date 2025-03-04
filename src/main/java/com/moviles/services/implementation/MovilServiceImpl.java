@@ -1,12 +1,11 @@
 package com.moviles.services.implementation;
 
-import com.moviles.model.entities.Marca;
 import com.moviles.model.entities.Movil;
 import com.moviles.repositories.MovilRepository;
-import com.moviles.services.interfaces.ModeloService;
 import com.moviles.services.interfaces.MovilService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,7 +22,12 @@ public class MovilServiceImpl implements MovilService {
     }
 
     @Override
-    public boolean create(Movil entity) {
+    public List<Movil> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(Movil entity) {
         return false;
     }
 

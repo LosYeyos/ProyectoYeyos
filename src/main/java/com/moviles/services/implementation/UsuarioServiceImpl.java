@@ -2,10 +2,10 @@ package com.moviles.services.implementation;
 
 import com.moviles.model.entities.Usuario;
 import com.moviles.repositories.UsuarioRepository;
-import com.moviles.services.interfaces.TecnologiaPantallaService;
 import com.moviles.services.interfaces.UsuarioService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,7 +22,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public boolean create(Usuario entity) {
+    public List<Usuario> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(Usuario entity) {
         return false;
     }
 

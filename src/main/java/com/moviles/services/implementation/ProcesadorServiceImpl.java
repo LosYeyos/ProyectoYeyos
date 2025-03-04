@@ -5,6 +5,7 @@ import com.moviles.repositories.ProcesadorRepository;
 import com.moviles.services.interfaces.ProcesadorService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +22,12 @@ public class ProcesadorServiceImpl implements ProcesadorService {
     }
 
     @Override
-    public boolean create(Procesador entity) {
+    public List<Procesador> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(Procesador entity) {
         return false;
     }
 

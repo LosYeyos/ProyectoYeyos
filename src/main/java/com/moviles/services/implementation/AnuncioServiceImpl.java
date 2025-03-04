@@ -7,6 +7,7 @@ import com.moviles.repositories.PostVentaRepository;
 import com.moviles.services.interfaces.AnuncioService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,7 +30,12 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public boolean create(Anuncio entity) {
+    public List<Anuncio> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(Anuncio entity) {
         return false;
     }
 

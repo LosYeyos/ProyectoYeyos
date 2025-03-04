@@ -5,6 +5,7 @@ import com.moviles.repositories.TecnologiaPantallaRepository;
 import com.moviles.services.interfaces.TecnologiaPantallaService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +22,12 @@ public class TecnologiaPantallaServiceImpl implements TecnologiaPantallaService 
     }
 
     @Override
-    public boolean create(TecnologiaPantalla entity) {
+    public List<TecnologiaPantalla> findAll() {
+        return List.of();
+    }
+
+    @Override
+    public boolean save(TecnologiaPantalla entity) {
         return false;
     }
 
