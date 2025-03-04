@@ -56,4 +56,16 @@ public class Movil {
 
     @NonNull
     private LocalDate fechaLanzamiento;
+
+    public String getModelName() {
+        return modelo.getNombre();
+    }
+
+    public String getMarcaName() {
+        return modelo.getMarca().getNombre();
+    }
+
+    public boolean hasNFC() {
+        return NFC;
+    }
 }
