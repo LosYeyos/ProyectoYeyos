@@ -1,5 +1,6 @@
 package com.moviles.model.entities;
 
+import com.moviles.model.entities.compositekeys.PostVentaId;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
