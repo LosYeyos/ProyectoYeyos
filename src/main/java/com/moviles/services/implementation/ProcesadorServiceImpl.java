@@ -3,6 +3,7 @@ package com.moviles.services.implementation;
 import com.moviles.model.entities.Procesador;
 import com.moviles.repositories.ProcesadorRepository;
 import com.moviles.services.interfaces.ProcesadorService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,27 +18,27 @@ public class ProcesadorServiceImpl implements ProcesadorService {
     }
 
     @Override
-    public Optional<Procesador> findById(Long id) {
-        return Optional.empty();
+    public ResponseEntity<Optional<Procesador>> findById(Long id) {
+        return null;
     }
 
     @Override
-    public List<Procesador> findAll() {
-        return List.of();
+    public ResponseEntity<List<Procesador>> findAll() {
+        return null;
     }
 
     @Override
-    public boolean save(Procesador entity) {
-        return false;
+    public ResponseEntity<Boolean> save(Procesador entity) {
+        return null;
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public ResponseEntity<Boolean> delete(Long id) {
+        return null;
     }
 
     @Override
-    public boolean update(Procesador entity) {
-        return false;
+    public ResponseEntity<Boolean> update(Procesador entity) {
+        return null;
     }
 }

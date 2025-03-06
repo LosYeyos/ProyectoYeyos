@@ -1,11 +1,14 @@
 package com.moviles.controller;
 
+import com.moviles.model.entities.Usuario;
 import com.moviles.services.implementation.UsuarioServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/usuario")
+@RequestMapping("api/usuarios")
 public class UsuarioController {
     private final UsuarioServiceImpl userService;
 
@@ -15,11 +18,8 @@ public class UsuarioController {
     }
 
     //TODO: Implementar los métodos de la API REST para Usuario
-    @PostMapping("new")
-    public ResponseEntity<Boolean> createUser() { return null; }
-
-    @DeleteMapping("delete")
-    public ResponseEntity<Boolean> delete(@RequestParam String username) {
-        return null;
+    @GetMapping("/all")
+    public ResponseEntity<List<Usuario>> getAll() {
+        return userService.findAll();
     }
 }

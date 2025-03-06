@@ -1,5 +1,6 @@
 package com.moviles.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Procesador {
     @NonNull
     private double maxGHz;
 
+    @JsonIgnore
     @NonNull
     @OneToMany(mappedBy = "procesador")
     private List<Movil> moviles;

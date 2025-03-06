@@ -1,6 +1,7 @@
 package com.moviles.populators;
 
 import com.moviles.model.entities.*;
+import com.moviles.om.UsuariosOM;
 import com.moviles.repositories.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,13 +17,20 @@ public class Populators {
     private MarcaRepository marcaRepository;
     private TecnologiaPantallaRepository tecnologiaPantallaRepository;
     private ProcesadorRepository procesadorRepository;
+    private UsuarioRepository usuarioRepository;
 
-    public Populators(MovilRepository movilRepository, ModeloRepository modeloRepository, MarcaRepository marcaRepository, TecnologiaPantallaRepository tecnologiaPantallaRepository, ProcesadorRepository procesadorRepository) {
+    public Populators(MovilRepository movilRepository,
+                      ModeloRepository modeloRepository,
+                      MarcaRepository marcaRepository,
+                      TecnologiaPantallaRepository tecnologiaPantallaRepository,
+                      ProcesadorRepository procesadorRepository,
+                      UsuarioRepository usuarioRepository) {
         this.movilRepository = movilRepository;
         this.modeloRepository = modeloRepository;
         this.marcaRepository = marcaRepository;
         this.tecnologiaPantallaRepository = tecnologiaPantallaRepository;
         this.procesadorRepository = procesadorRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @PostConstruct
@@ -254,5 +262,8 @@ public class Populators {
         movil6.setPrecio(999.99);
         movil6.setFechaLanzamiento(LocalDate.of(2020, 4, 7));
         movilRepository.save(movil6);
+
+        UsuariosOM usuariosOM = new UsuariosOM();
+        usuarioRepository.saveAll(usuariosOM.getData());
     }
 }

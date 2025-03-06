@@ -1,5 +1,6 @@
 package com.moviles.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Modelo {
     @NonNull
     private String nombre;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "modelo")
     private List<Movil> moviles;
 }

@@ -18,25 +18,26 @@ public class ModeloController {
 
     @GetMapping("find")
     public ResponseEntity<List<Modelo>> get() {
-        return ResponseEntity.ok(modeloServiceImpl.findAll());
+        return ResponseEntity.notFound().build();
     }
+
     @GetMapping("findById")
     public ResponseEntity<Modelo> getById(@RequestParam Long id) {
-        return ResponseEntity.ok(modeloServiceImpl.findById(id).get());
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("delete")
     public ResponseEntity<Boolean> delete(@RequestParam Long id) {
-        return ResponseEntity.ok(modeloServiceImpl.delete(id));
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("create")
     public ResponseEntity<Boolean> post(@RequestBody Modelo modelo) {
-        return ResponseEntity.ok(modeloServiceImpl.save(modelo));
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("update")
     public ResponseEntity<Boolean> put(@RequestBody Modelo modelo) {
-        return ResponseEntity.ok(modeloServiceImpl.save(modelo));
+        return ResponseEntity.notFound().build();
     }
 }

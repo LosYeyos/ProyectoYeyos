@@ -3,6 +3,7 @@ package com.moviles.services.implementation;
 import com.moviles.model.entities.Usuario;
 import com.moviles.repositories.UsuarioRepository;
 import com.moviles.services.interfaces.UsuarioService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,27 +18,49 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Optional<Usuario> findById(Long id) {
-        return Optional.empty();
+    public ResponseEntity<Optional<Usuario>> findById(Long id) {
+        Optional<Usuario> byId = usuarioRepository.findById(id);
+        if (byId.isPresent()){
+            return ResponseEntity.ok(byId);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
-    public List<Usuario> findAll() {
-        return List.of();
+    public ResponseEntity<List<Usuario>> findAll() {
+        List<Usuario> all = usuarioRepository.findAll();
+        if (!all.isEmpty()){
+            return ResponseEntity.ok(all);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
-    public boolean save(Usuario entity) {
-        return false;
+    public ResponseEntity<Boolean> save(Usuario entity) {
+        if (usuarioRepository.findAll().contains(entity)){
+            return ResponseEntity.badRequest().build();
+        }
+        usuarioRepository.save(entity);
+        return ResponseEntity.ok(true);
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public ResponseEntity<Boolean> delete(Long id) {
+        Optional<Usuario> byId = usuarioRepository.findById(id);
+        if (byId.isPresent()){
+            usuarioRepository.deleteById(id);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
-    public boolean update(Usuario entity) {
-        return false;
+    public ResponseEntity<Boolean> update(Usuario entity) {
+        Optional<Usuario> byId = usuarioRepository.findById(entity.getId());
+        if (byId.isPresent()){
+            usuarioRepository.save(entity);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

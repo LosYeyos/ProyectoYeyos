@@ -3,6 +3,7 @@ package com.moviles.services.implementation;
 import com.moviles.model.entities.Movil;
 import com.moviles.repositories.MovilRepository;
 import com.moviles.services.interfaces.MovilService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,27 +18,31 @@ public class MovilServiceImpl implements MovilService {
     }
 
     @Override
-    public Optional<Movil> findById(Long id) {
-        return Optional.empty();
+    public ResponseEntity<Optional<Movil>> findById(Long id) {
+        return null;
     }
 
     @Override
-    public List<Movil> findAll() {
-        return List.of();
+    public ResponseEntity<List<Movil>> findAll() {
+        List<Movil> all = movilRepository.findAll();
+        if (!all.isEmpty()){
+            return ResponseEntity.ok(all);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
-    public boolean save(Movil entity) {
-        return false;
+    public ResponseEntity<Boolean> save(Movil entity) {
+        return null;
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public ResponseEntity<Boolean> delete(Long id) {
+        return null;
     }
 
     @Override
-    public boolean update(Movil entity) {
-        return false;
+    public ResponseEntity<Boolean> update(Movil entity) {
+        return null;
     }
 }

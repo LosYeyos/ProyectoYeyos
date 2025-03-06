@@ -3,6 +3,7 @@ package com.moviles.services.implementation;
 import com.moviles.model.entities.TecnologiaPantalla;
 import com.moviles.repositories.TecnologiaPantallaRepository;
 import com.moviles.services.interfaces.TecnologiaPantallaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,27 +18,27 @@ public class TecnologiaPantallaServiceImpl implements TecnologiaPantallaService 
     }
 
     @Override
-    public Optional<TecnologiaPantalla> findById(Long id) {
-        return Optional.empty();
+    public ResponseEntity<Optional<TecnologiaPantalla>> findById(Long id) {
+        return null;
     }
 
     @Override
-    public List<TecnologiaPantalla> findAll() {
-        return List.of();
+    public ResponseEntity<List<TecnologiaPantalla>> findAll() {
+        return null;
     }
 
     @Override
-    public boolean save(TecnologiaPantalla entity) {
-        return false;
+    public ResponseEntity<Boolean> save(TecnologiaPantalla entity) {
+        return null;
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public ResponseEntity<Boolean> delete(Long id) {
+        return null;
     }
 
     @Override
-    public boolean update(TecnologiaPantalla entity) {
-        return false;
+    public ResponseEntity<Boolean> update(TecnologiaPantalla entity) {
+        return null;
     }
 }
