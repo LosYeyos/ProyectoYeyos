@@ -18,25 +18,25 @@ public class ProcesadorController {
 
     @GetMapping("find")
     public ResponseEntity<List<Procesador>> get() {
-        return ResponseEntity.ok(procesadorService.findAll());
+        return ResponseEntity.notFound().build();
     }
     @GetMapping("findById")
     public ResponseEntity<Procesador> getById(@RequestParam Long id) {
-        return ResponseEntity.ok(procesadorService.findById(id).get());
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("delete")
     public ResponseEntity<Boolean> delete(@RequestParam Long id) {
-        return ResponseEntity.ok(procesadorService.delete(id));
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("create")
     public ResponseEntity<Boolean> post(@RequestBody Procesador procesador) {
-        return ResponseEntity.ok(procesadorService.save(procesador));
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("update")
     public ResponseEntity<Boolean> put(@RequestBody Procesador updateObject) {
-        return ResponseEntity.ok(procesadorService.update(updateObject));
+        return ResponseEntity.notFound().build();
     }
 }

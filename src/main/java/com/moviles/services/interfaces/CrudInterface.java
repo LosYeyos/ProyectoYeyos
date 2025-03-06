@@ -1,12 +1,14 @@
 package com.moviles.services.interfaces;
 
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 import java.util.Optional;
 
 public interface CrudInterface<T, K> {
-    Optional<T> findById(K id);
-    List<T> findAll();
-    boolean save(T entity);
-    boolean delete(K id);
-    boolean update(T entity);
+    ResponseEntity<Optional<T>> findById(K id);
+    ResponseEntity<List<T>> findAll();
+    ResponseEntity<Boolean> save(T entity);
+    ResponseEntity<Boolean> delete(K id);
+    ResponseEntity<Boolean> update(T entity);
 }

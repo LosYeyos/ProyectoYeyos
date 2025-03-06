@@ -19,27 +19,27 @@ public class TecnologiaPantallaController {
 
     @GetMapping("find")
     public ResponseEntity<List<TecnologiaPantalla>> get() {
-        return ResponseEntity.ok(pantallaService.findAll());
+        return ResponseEntity.notFound().build();
     }
     @GetMapping("findById")
     public ResponseEntity<TecnologiaPantalla> getById(@RequestParam Long id) {
-        return ResponseEntity.ok(pantallaService.findById(id).get());
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("borrar")
     public ResponseEntity<Boolean> delete(@RequestParam Long id) {
-        return ResponseEntity.ok(pantallaService.delete(id));
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("crear")
     public ResponseEntity<Boolean> post(@RequestBody TecnologiaPantalla tecnologiaPantalla) {
-        return ResponseEntity.ok(pantallaService.save(tecnologiaPantalla));
+        return ResponseEntity.notFound().build();
 
     }
 
     @PutMapping("update")
     public ResponseEntity<Boolean> put(@RequestBody TecnologiaPantalla tecnologiaPantalla) {
-        return ResponseEntity.ok(pantallaService.update(tecnologiaPantalla));
+        return ResponseEntity.notFound().build();
 
     }
 }

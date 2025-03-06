@@ -3,6 +3,7 @@ package com.moviles.services.implementation;
 import com.moviles.model.entities.Modelo;
 import com.moviles.repositories.ModeloRepository;
 import com.moviles.services.interfaces.ModeloService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,27 +18,27 @@ public class ModeloServiceImpl implements ModeloService {
     }
 
     @Override
-    public Optional<Modelo> findById(Long id) {
-        return Optional.empty();
+    public ResponseEntity<Optional<Modelo>> findById(Long id) {
+        return null;
     }
 
     @Override
-    public List<Modelo> findAll() {
-        return List.of();
+    public ResponseEntity<List<Modelo>> findAll() {
+        return null;
     }
 
     @Override
-    public boolean save(Modelo entity) {
-        return false;
+    public ResponseEntity<Boolean> save(Modelo entity) {
+        return null;
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public ResponseEntity<Boolean> delete(Long id) {
+        return null;
     }
 
     @Override
-    public boolean update(Modelo entity) {
-        return false;
+    public ResponseEntity<Boolean> update(Modelo entity) {
+        return null;
     }
 }

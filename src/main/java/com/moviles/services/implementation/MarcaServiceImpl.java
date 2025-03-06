@@ -3,6 +3,7 @@ package com.moviles.services.implementation;
 import com.moviles.model.entities.Marca;
 import com.moviles.repositories.MarcaRepository;
 import com.moviles.services.interfaces.MarcaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,27 +18,27 @@ public class MarcaServiceImpl implements MarcaService {
     }
 
     @Override
-    public Optional<Marca> findById(Long id) {
-        return marcaRepository.findById(id);
+    public ResponseEntity<Optional<Marca>> findById(Long id) {
+        return null;
     }
 
     @Override
-    public List<Marca> findAll() {
-        return List.of();
+    public ResponseEntity<List<Marca>> findAll() {
+        return null;
     }
 
     @Override
-    public boolean save(Marca entity) {
-        return marcaRepository.save(entity);
+    public ResponseEntity<Boolean> save(Marca entity) {
+        return null;
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public ResponseEntity<Boolean> delete(Long id) {
+        return null;
     }
 
     @Override
-    public boolean update(Marca entity) {
-        return false;
+    public ResponseEntity<Boolean> update(Marca entity) {
+        return null;
     }
 }

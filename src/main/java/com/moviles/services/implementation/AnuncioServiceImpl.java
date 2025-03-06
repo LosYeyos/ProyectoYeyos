@@ -5,6 +5,7 @@ import com.moviles.repositories.MovilRepository;
 import com.moviles.repositories.PostIntercambioRepository;
 import com.moviles.repositories.PostVentaRepository;
 import com.moviles.services.interfaces.AnuncioService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,27 +26,27 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public Optional<Anuncio> findById(Long id) {
-        return Optional.empty();
+    public ResponseEntity<Optional<Anuncio>> findById(Long id) {
+        return null;
     }
 
     @Override
-    public List<Anuncio> findAll() {
-        return List.of();
+    public ResponseEntity<List<Anuncio>> findAll() {
+        return null;
     }
 
     @Override
-    public boolean save(Anuncio entity) {
-        return false;
+    public ResponseEntity<Boolean> save(Anuncio entity) {
+        return null;
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public ResponseEntity<Boolean> delete(Long id) {
+        return null;
     }
 
     @Override
-    public boolean update(Anuncio entity) {
-        return false;
+    public ResponseEntity<Boolean> update(Anuncio entity) {
+        return null;
     }
 }
