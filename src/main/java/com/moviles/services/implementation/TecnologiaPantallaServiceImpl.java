@@ -18,7 +18,7 @@ public class TecnologiaPantallaServiceImpl implements TecnologiaPantallaService 
     }
 
     @Override
-    public ResponseEntity<Optional<TecnologiaPantalla>> findById(Long id) {
+    public ResponseEntity<TecnologiaPantalla> findById(Long id) {
         return null;
     }
 

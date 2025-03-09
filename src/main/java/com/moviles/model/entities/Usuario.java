@@ -24,7 +24,7 @@ public class Usuario {
     private String nombre;
 
     @NonNull
-    private String contraseña;
+    private String contrasena;
 
     @NonNull
     private UsuarioRole role;

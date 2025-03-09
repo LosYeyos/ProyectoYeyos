@@ -1,5 +1,7 @@
 package com.moviles.services.implementation;
 
+import com.moviles.mappers.UsuarioDTOMapper;
+import com.moviles.model.dtos.UsuarioEmailDTO;
 import com.moviles.model.entities.Usuario;
 import com.moviles.repositories.UsuarioRepository;
 import com.moviles.services.interfaces.UsuarioService;
@@ -13,15 +15,17 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
 
+
+
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 
     @Override
-    public ResponseEntity<Optional<Usuario>> findById(Long id) {
+    public ResponseEntity<Usuario> findById(Long id) {
         Optional<Usuario> byId = usuarioRepository.findById(id);
         if (byId.isPresent()){
-            return ResponseEntity.ok(byId);
+            return ResponseEntity.ok(byId.get());
         }
         return ResponseEntity.notFound().build();
     }

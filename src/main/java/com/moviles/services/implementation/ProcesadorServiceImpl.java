@@ -18,7 +18,7 @@ public class ProcesadorServiceImpl implements ProcesadorService {
     }
 
     @Override
-    public ResponseEntity<Optional<Procesador>> findById(Long id) {
+    public ResponseEntity<Procesador> findById(Long id) {
         return null;
     }
 

@@ -18,7 +18,7 @@ public class MovilServiceImpl implements MovilService {
     }
 
     @Override
-    public ResponseEntity<Optional<Movil>> findById(Long id) {
+    public ResponseEntity<Movil> findById(Long id) {
         return null;
     }
 

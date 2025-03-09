@@ -26,7 +26,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public ResponseEntity<Optional<Anuncio>> findById(Long id) {
+    public ResponseEntity<Anuncio> findById(Long id) {
         return null;
     }
 

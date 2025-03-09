@@ -1,5 +1,5 @@
 package com.moviles.model.dtos;
 
-public record MarcaDTO(Long id, String nombre) {
+public record MarcaDTO(String nombre) {
 
 }

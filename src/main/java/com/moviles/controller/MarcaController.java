@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/marca")
+@RequestMapping("api/marcas")
 public class MarcaController {
 
     private MarcaServiceImpl marcaServiceImpl;
@@ -19,26 +19,26 @@ public class MarcaController {
 
     @GetMapping("find")
     public ResponseEntity<List<Marca>> get() {
-        return ResponseEntity.notFound().build();
+        return marcaServiceImpl.findAll();
     }
 
     @GetMapping("findById")
     public ResponseEntity<Marca> getById(@RequestParam Long id) {
-        return ResponseEntity.notFound().build();
+        return marcaServiceImpl.findById(id);
     }
 
     @DeleteMapping("delete")
     public ResponseEntity<Boolean> delete(@RequestParam Long id) {
-        return ResponseEntity.notFound().build();
+        return marcaServiceImpl.delete(id);
     }
 
     @PostMapping("create")
     public ResponseEntity<Boolean> post(@RequestBody Marca marca) {
-        return ResponseEntity.notFound().build();
+        return marcaServiceImpl.save(marca);
     }
 
     @PutMapping("update")
     public ResponseEntity<Boolean> put(@RequestBody Marca marca) {
-        return ResponseEntity.notFound().build();
+        return marcaServiceImpl.update(marca);
     }
 }

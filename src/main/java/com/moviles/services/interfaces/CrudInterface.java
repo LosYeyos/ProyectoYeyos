@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CrudInterface<T, K> {
-    ResponseEntity<Optional<T>> findById(K id);
+    ResponseEntity<T> findById(K id);
     ResponseEntity<List<T>> findAll();
     ResponseEntity<Boolean> save(T entity);
     ResponseEntity<Boolean> delete(K id);

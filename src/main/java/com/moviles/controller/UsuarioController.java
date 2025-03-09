@@ -1,5 +1,6 @@
 package com.moviles.controller;
 
+import com.moviles.model.dtos.UsuarioEmailDTO;
 import com.moviles.model.entities.Usuario;
 import com.moviles.services.implementation.UsuarioServiceImpl;
 import org.springframework.http.ResponseEntity;
