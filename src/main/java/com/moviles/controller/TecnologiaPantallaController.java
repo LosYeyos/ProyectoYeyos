@@ -1,7 +1,7 @@
 package com.moviles.controller;
 
 import com.moviles.model.entities.TecnologiaPantalla;
-import com.moviles.services.interfaces.TecnologiaPantallaService;
+import com.moviles.services.implementation.TecnologiaPantallaServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,35 +11,34 @@ import java.util.List;
 @RequestMapping("api/tecnologiaPantalla")
 public class TecnologiaPantallaController {
 
-    private TecnologiaPantallaService pantallaService;
+    private TecnologiaPantallaServiceImpl pantallaServiceImpl;
 
-    public TecnologiaPantallaController(TecnologiaPantallaService pantallaRepository) {
-        this.pantallaService = pantallaRepository;
+    public TecnologiaPantallaController(TecnologiaPantallaServiceImpl pantallaServiceImpl) {
+        this.pantallaServiceImpl = pantallaServiceImpl;
     }
 
     @GetMapping("find")
     public ResponseEntity<List<TecnologiaPantalla>> get() {
-        return ResponseEntity.notFound().build();
+        return pantallaServiceImpl.findAll();
     }
+
     @GetMapping("findById")
     public ResponseEntity<TecnologiaPantalla> getById(@RequestParam Long id) {
-        return ResponseEntity.notFound().build();
+        return pantallaServiceImpl.findById(id);
     }
 
     @DeleteMapping("borrar")
     public ResponseEntity<Boolean> delete(@RequestParam Long id) {
-        return ResponseEntity.notFound().build();
+        return pantallaServiceImpl.delete(id);
     }
 
     @PostMapping("crear")
     public ResponseEntity<Boolean> post(@RequestBody TecnologiaPantalla tecnologiaPantalla) {
-        return ResponseEntity.notFound().build();
-
+        return pantallaServiceImpl.save(tecnologiaPantalla);
     }
 
     @PutMapping("update")
     public ResponseEntity<Boolean> put(@RequestBody TecnologiaPantalla tecnologiaPantalla) {
-        return ResponseEntity.notFound().build();
-
+        return pantallaServiceImpl.update(tecnologiaPantalla);
     }
 }

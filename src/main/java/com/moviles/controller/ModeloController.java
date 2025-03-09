@@ -1,5 +1,6 @@
 package com.moviles.controller;
 
+import com.moviles.model.dtos.ModeloDTO;
 import com.moviles.model.entities.Modelo;
 import com.moviles.services.implementation.ModeloServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -18,26 +19,26 @@ public class ModeloController {
 
     @GetMapping("find")
     public ResponseEntity<List<Modelo>> get() {
-        return ResponseEntity.notFound().build();
+        return modeloServiceImpl.findAll();
     }
 
     @GetMapping("findById")
     public ResponseEntity<Modelo> getById(@RequestParam Long id) {
-        return ResponseEntity.notFound().build();
+        return modeloServiceImpl.findById(id);
     }
 
     @DeleteMapping("delete")
     public ResponseEntity<Boolean> delete(@RequestParam Long id) {
-        return ResponseEntity.notFound().build();
+        return modeloServiceImpl.delete(id);
     }
 
     @PostMapping("create")
     public ResponseEntity<Boolean> post(@RequestBody Modelo modelo) {
-        return ResponseEntity.notFound().build();
+        return modeloServiceImpl.save(modelo);
     }
 
     @PutMapping("update")
     public ResponseEntity<Boolean> put(@RequestBody Modelo modelo) {
-        return ResponseEntity.notFound().build();
+        return modeloServiceImpl.update(modelo);
     }
 }

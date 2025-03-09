@@ -19,26 +19,49 @@ public class TecnologiaPantallaServiceImpl implements TecnologiaPantallaService 
 
     @Override
     public ResponseEntity<TecnologiaPantalla> findById(Long id) {
-        return null;
+        Optional<TecnologiaPantalla> byId = tecnologiaPantallaRepository.findById(id);
+        if (byId.isPresent()) {
+            return ResponseEntity.ok(byId.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
     public ResponseEntity<List<TecnologiaPantalla>> findAll() {
-        return null;
+        List<TecnologiaPantalla> all = tecnologiaPantallaRepository.findAll();
+        if (!all.isEmpty()) {
+            return ResponseEntity.ok(all);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
     public ResponseEntity<Boolean> save(TecnologiaPantalla entity) {
-        return null;
+        if (entity != null) {
+            entity.setId(null);
+            TecnologiaPantalla save = tecnologiaPantallaRepository.save(entity);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @Override
     public ResponseEntity<Boolean> delete(Long id) {
-        return null;
+        Optional<TecnologiaPantalla> byId = tecnologiaPantallaRepository.findById(id);
+        if (byId.isPresent()) {
+            tecnologiaPantallaRepository.deleteById(id);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
     public ResponseEntity<Boolean> update(TecnologiaPantalla entity) {
-        return null;
+        Optional<TecnologiaPantalla> byId = tecnologiaPantallaRepository.findById(entity.getId());
+        if (byId.isPresent()) {
+            tecnologiaPantallaRepository.save(entity);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

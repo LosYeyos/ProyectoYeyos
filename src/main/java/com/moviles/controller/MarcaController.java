@@ -1,5 +1,6 @@
 package com.moviles.controller;
 
+import com.moviles.model.dtos.MarcaDTO;
 import com.moviles.model.entities.Marca;
 import com.moviles.services.implementation.MarcaServiceImpl;
 import org.springframework.http.ResponseEntity;

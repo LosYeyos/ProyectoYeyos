@@ -1,5 +1,5 @@
 package com.moviles.model.dtos;
 
-public record PeticionVentaDTO(Long id, UsuarioEmailDTO solicitante, PostVentaDTO postVenta, boolean aceptada) {
+public record PeticionVentaDTO(UsuarioEmailDTO solicitante, PostVentaDTO postVenta, boolean aceptada) {
 
 }

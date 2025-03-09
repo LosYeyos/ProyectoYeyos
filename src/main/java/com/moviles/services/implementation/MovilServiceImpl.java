@@ -19,7 +19,11 @@ public class MovilServiceImpl implements MovilService {
 
     @Override
     public ResponseEntity<Movil> findById(Long id) {
-        return null;
+        Optional<Movil> byId = movilRepository.findById(id);
+        if (byId.isPresent()){
+            return ResponseEntity.ok(byId.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
@@ -33,16 +37,31 @@ public class MovilServiceImpl implements MovilService {
 
     @Override
     public ResponseEntity<Boolean> save(Movil entity) {
-        return null;
+        if (movilRepository.findAll().contains(entity)){
+            return ResponseEntity.badRequest().build();
+        }
+        entity.setId(null);
+        movilRepository.save(entity);
+        return ResponseEntity.ok(true);
     }
 
     @Override
     public ResponseEntity<Boolean> delete(Long id) {
-        return null;
+        Optional<Movil> byId = movilRepository.findById(id);
+        if (byId.isPresent()){
+            movilRepository.deleteById(id);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
     public ResponseEntity<Boolean> update(Movil entity) {
-        return null;
+        Optional<Movil> byId = movilRepository.findById(entity.getId());
+        if (byId.isPresent()){
+            movilRepository.save(entity);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

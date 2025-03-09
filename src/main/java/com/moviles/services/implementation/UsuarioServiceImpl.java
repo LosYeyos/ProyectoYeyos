@@ -44,6 +44,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuarioRepository.findAll().contains(entity)){
             return ResponseEntity.badRequest().build();
         }
+        entity.setId(null);
         usuarioRepository.save(entity);
         return ResponseEntity.ok(true);
     }

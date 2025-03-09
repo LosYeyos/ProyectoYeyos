@@ -19,26 +19,49 @@ public class ProcesadorServiceImpl implements ProcesadorService {
 
     @Override
     public ResponseEntity<Procesador> findById(Long id) {
-        return null;
+        Optional<Procesador> procesador = procesadorRepository.findById(id);
+        if (procesador.isPresent()) {
+            return ResponseEntity.ok(procesador.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
     public ResponseEntity<List<Procesador>> findAll() {
-        return null;
+        List<Procesador> procesadores = procesadorRepository.findAll();
+        if (!procesadores.isEmpty()) {
+            return ResponseEntity.ok(procesadores);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
     public ResponseEntity<Boolean> save(Procesador entity) {
-        return null;
+        if (entity != null) {
+            entity.setId(null);
+            Procesador procesador = procesadorRepository.save(entity);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @Override
     public ResponseEntity<Boolean> delete(Long id) {
-        return null;
+        Optional<Procesador> procesador = procesadorRepository.findById(id);
+        if (procesador.isPresent()) {
+            procesadorRepository.deleteById(id);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Override
     public ResponseEntity<Boolean> update(Procesador entity) {
-        return null;
+        Optional<Procesador> procesador = procesadorRepository.findById(entity.getId());
+        if (procesador.isPresent()) {
+            Procesador procesadorUpdated = procesadorRepository.save(entity);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -1,5 +1,7 @@
 package com.moviles.services.implementation;
 
+import com.moviles.mappers.MarcaDTOMapper;
+import com.moviles.model.dtos.MarcaDTO;
 import com.moviles.model.entities.Marca;
 import com.moviles.repositories.MarcaRepository;
 import com.moviles.services.interfaces.MarcaService;
@@ -38,7 +40,8 @@ public class MarcaServiceImpl implements MarcaService {
     @Override
     public ResponseEntity<Boolean> save(Marca entity) {
         if (entity != null) {
-            Marca marca = marcaRepository.save(entity);
+            entity.setId(null);
+            marcaRepository.save(entity);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.badRequest().build();
@@ -58,7 +61,7 @@ public class MarcaServiceImpl implements MarcaService {
     public ResponseEntity<Boolean> update(Marca entity) {
         Optional<Marca> marca = marcaRepository.findById(entity.getId());
         if (marca.isPresent()) {
-            marcaRepository.save(entity);
+            marcaRepository.save(marca.get());
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.notFound().build();

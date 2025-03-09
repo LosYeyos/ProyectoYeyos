@@ -23,4 +23,5 @@ public class UsuarioController {
     public ResponseEntity<List<Usuario>> getAll() {
         return userService.findAll();
     }
+
 }
