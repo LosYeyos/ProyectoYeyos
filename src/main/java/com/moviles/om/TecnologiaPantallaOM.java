@@ -7,7 +7,7 @@ import com.moviles.model.entities.TecnologiaPantalla;
 
 public class TecnologiaPantallaOM {
 
-	public List<TecnologiaPantalla> getdata() {
+	public List<TecnologiaPantalla> getData() {
 		List<TecnologiaPantalla> lista = new ArrayList<>();
 
 		TecnologiaPantalla tecnologiaPantalla = new TecnologiaPantalla();
