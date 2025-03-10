@@ -1,9 +1,7 @@
 package com.servicios;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.moviles.model.entities.Marca;
@@ -21,115 +21,135 @@ import com.moviles.model.entities.Movil;
 import com.moviles.om.MovilOM;
 import com.moviles.repositories.MovilRepository;
 import com.moviles.services.implementation.MovilServiceImpl;
-import com.moviles.services.interfaces.MovilService;
 
-
+@SpringBootTest
 class ServiceTest {
 
-	  	@Mock
-	    private MovilRepository movilRepository;
+    @Mock
+    private MovilRepository movilRepository;
 
-	    @InjectMocks
-	    private MovilService movilService; 
+    @InjectMocks
+    private MovilServiceImpl movilService;
 
-	    private MovilOM movilOM;
-	    private List<Movil> moviles;
+    private MovilOM movilOM;
+    private List<Movil> moviles;
 
-	    @BeforeEach
-	    void setUp() {
-	        movilOM = new MovilOM();
-	        moviles = movilOM.getData(); 
-	    }
+    @BeforeEach
+    void setUp() {
+        movilOM = new MovilOM();
+        moviles = movilOM.getData();
+    }
 
-	    @Test
-	    void testMostrarTodosLosMoviles() {
-	        // Arrange
-	        when(movilRepository.findAll()).thenReturn(moviles); 
+    @Test
+    void testMostrarTodosLosMoviles() {
+        when(movilRepository.findAll()).thenReturn(moviles);
 
-	        // Act
-	        ResponseEntity<List<Movil>> respuesta = movilService.findAll();
-	        List<Movil> resultado = respuesta.getBody();
+        ResponseEntity<List<Movil>> respuesta = movilService.findAll();
+        List<Movil> resultado = respuesta.getBody();
 
-	        // Assert
-	        assertNotNull(resultado);
-	        assertEquals(5, resultado.size()); 
-	        verify(movilRepository, times(1)).findAll(); 
-	    }
-	    @Test
-	    void testFindById() {
-	        // Arrange
-	        Long id = 1L;
-	        movilService = new MovilServiceImpl(); 
+        assertNotNull(resultado);
+        assertEquals(5, resultado.size());
+        verify(movilRepository, times(1)).findAll();
+    }
 
-	        // Act
-	        ResponseEntity<Optional<Movil>> respuesta = movilService.findById(id);
-	        Optional<Movil> resultado = respuesta.getBody();
+    @Test
+    void testFindById() {
+        Long id = 1L;
+        Movil movil = moviles.get(0);
+        when(movilRepository.findById(id)).thenReturn(Optional.of(movil));
 
-	        // Assert
-	        assertNotNull(resultado); 
-	        assertFalse(resultado.isPresent());
-	    }
-	    
-	    @Test
-	    void testSave() {
-	        // Arrange
-	        Movil nuevoMovil = new Movil();
-	        Modelo modeloprueba = new Modelo();
-	        Marca marca = new Marca();
-	        marca.setId(1L);
-	        marca.setNombre("Samsung");
-	        modeloprueba.setMarca(marca);
-	        modeloprueba.setId(1L);
-	        modeloprueba.setNombre("Galaxy S21");
-	        nuevoMovil.setModelo(modeloprueba);
-	        nuevoMovil.setPrecio(699.99);
-	        movilService = new MovilServiceImpl(); 
+        ResponseEntity<Movil> respuesta = movilService.findById(id);
+        Movil resultado = respuesta.getBody();
 
-	        // Act
-	        ResponseEntity<Boolean> respuesta = movilService.save(nuevoMovil);
-	        Boolean resultado = respuesta.getBody();
+        assertNotNull(resultado);
+        assertEquals(movil.getId(), resultado.getId());
+        verify(movilRepository, times(1)).findById(id);
+    }
 
-	        // Assert
-	        assertNotNull(resultado); 
-	        assertTrue(resultado); 
-	    }
-	    @Test
-	    void testDelete() {
-	        // Arrange
-	        Long id = 1L;
-	        movilService = new MovilServiceImpl(); 
+    @Test
+    void testFindById_NotFound() {
+        Long id = 99L;
+        when(movilRepository.findById(id)).thenReturn(Optional.empty());
 
-	        // Act
-	        ResponseEntity<Boolean> respuesta = movilService.delete(id);
-	        Boolean resultado = respuesta.getBody();
+        ResponseEntity<Movil> respuesta = movilService.findById(id);
 
-	        // Assert
-	        assertNotNull(resultado); 
-	        assertTrue(resultado); 
-	    }
-	    @Test
-	    void testUpdate() {
-	        // Arrange
-	        Movil movilActualizado = new Movil();
-	        Modelo modeloprueba = new Modelo();
-	        Marca marca = new Marca();
-	        marca.setId(1L);
-	        marca.setNombre("Samsung");
-	        modeloprueba.setMarca(marca);
-	        modeloprueba.setId(1L);
-	        modeloprueba.setNombre("Galaxy S21");
-	        movilActualizado.setModelo(modeloprueba);
-	        movilActualizado.setPrecio(699.99);
-	        movilService = new MovilServiceImpl(); 
+        assertEquals(HttpStatus.NOT_FOUND, respuesta.getStatusCode());
+        verify(movilRepository, times(1)).findById(id);
+    }
 
-	        // Act
-	        ResponseEntity<Boolean> respuesta = movilService.update(movilActualizado);
-	        Boolean resultado = respuesta.getBody();
+    @Test
+    void testSave() {
+        Movil nuevoMovil = moviles.get(0);
+        when(movilRepository.save(nuevoMovil)).thenReturn(nuevoMovil);
 
-	        // Assert
-	        assertNotNull(resultado); 
-	        assertTrue(resultado);
-	        }
-	    }
+        ResponseEntity<Boolean> respuesta = movilService.save(nuevoMovil);
+        Boolean resultado = respuesta.getBody();
 
+        assertNotNull(resultado);
+        assertTrue(resultado);
+        verify(movilRepository, times(1)).save(nuevoMovil);
+    }
 
+    @Test
+    void testSave_AlreadyExists() {
+        Movil nuevoMovil = moviles.get(0);
+        when(movilRepository.findAll()).thenReturn(moviles);
+
+        ResponseEntity<Boolean> respuesta = movilService.save(nuevoMovil);
+        Boolean resultado = respuesta.getBody();
+
+        assertNull(resultado);
+        assertEquals(HttpStatus.BAD_REQUEST, respuesta.getStatusCode());
+        verify(movilRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testDelete() {
+        Long id = 1L;
+        when(movilRepository.findById(id)).thenReturn(Optional.of(moviles.get(0)));
+        doNothing().when(movilRepository).deleteById(id);
+
+        ResponseEntity<Boolean> respuesta = movilService.delete(id);
+        Boolean resultado = respuesta.getBody();
+
+        assertNotNull(resultado);
+        assertTrue(resultado);
+        verify(movilRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    void testDelete_NotFound() {
+        Long id = 99L;
+        when(movilRepository.findById(id)).thenReturn(Optional.empty());
+
+        ResponseEntity<Boolean> respuesta = movilService.delete(id);
+
+        assertEquals(HttpStatus.NOT_FOUND, respuesta.getStatusCode());
+        verify(movilRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void testUpdate() {
+        Movil movilActualizado = moviles.get(0);
+        when(movilRepository.findById(movilActualizado.getId())).thenReturn(Optional.of(movilActualizado));
+        when(movilRepository.save(movilActualizado)).thenReturn(movilActualizado);
+
+        ResponseEntity<Boolean> respuesta = movilService.update(movilActualizado);
+        Boolean resultado = respuesta.getBody();
+
+        assertNotNull(resultado);
+        assertTrue(resultado);
+        verify(movilRepository, times(1)).save(movilActualizado);
+    }
+
+    @Test
+    void testUpdate_NotFound() {
+        Movil movilActualizado = moviles.get(0);
+        when(movilRepository.findById(movilActualizado.getId())).thenReturn(Optional.empty());
+
+        ResponseEntity<Boolean> respuesta = movilService.update(movilActualizado);
+
+        assertEquals(HttpStatus.NOT_FOUND, respuesta.getStatusCode());
+        verify(movilRepository, times(1)).findById(movilActualizado.getId());
+    }
+}
