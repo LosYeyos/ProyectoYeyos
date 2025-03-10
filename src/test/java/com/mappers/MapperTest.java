@@ -20,7 +20,7 @@ class PostVentaDTOMapperTest {
     private PostVentaDTOMapper postVentaDTOMapper;
 
     @Test
-    void testMapPostVentaDTOToPostVenta() {
+    void testMapToDTOPostVentaDTOToPostVenta() {
         Anuncio anuncio = new Anuncio();
         anuncio.setId(1L);
 
@@ -31,7 +31,7 @@ class PostVentaDTOMapperTest {
         );
 
         
-        PostVenta postVenta = postVentaDTOMapper.map(postVentaDTO);
+        PostVenta postVenta = postVentaDTOMapper.mapToEntity(postVentaDTO);
 
         assertNotNull(postVenta);
         assertEquals(postVentaDTO.id(), postVenta.getId());

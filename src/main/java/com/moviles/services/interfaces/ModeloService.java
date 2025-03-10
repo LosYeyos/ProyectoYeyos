@@ -9,5 +9,5 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface ModeloService extends CrudInterface<Modelo, Long> {
+public interface ModeloService extends CrudInterface<ModeloDTO, Long> {
 }

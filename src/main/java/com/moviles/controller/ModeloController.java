@@ -18,12 +18,12 @@ public class ModeloController {
     }
 
     @GetMapping("find")
-    public ResponseEntity<List<Modelo>> get() {
+    public ResponseEntity<List<ModeloDTO>> get() {
         return modeloServiceImpl.findAll();
     }
 
     @GetMapping("findById")
-    public ResponseEntity<Modelo> getById(@RequestParam Long id) {
+    public ResponseEntity<ModeloDTO> getById(@RequestParam Long id) {
         return modeloServiceImpl.findById(id);
     }
 
@@ -33,12 +33,12 @@ public class ModeloController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Boolean> post(@RequestBody Modelo modelo) {
+    public ResponseEntity<Boolean> post(@RequestBody ModeloDTO modelo) {
         return modeloServiceImpl.save(modelo);
     }
 
     @PutMapping("update")
-    public ResponseEntity<Boolean> put(@RequestBody Modelo modelo) {
-        return modeloServiceImpl.update(modelo);
+    public ResponseEntity<Boolean> put(@RequestBody ModeloDTO modelo, @RequestParam Long id) {
+        return modeloServiceImpl.update(modelo, id);
     }
 }

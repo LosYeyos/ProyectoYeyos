@@ -20,28 +20,30 @@ public class MarcaServiceImpl implements MarcaService {
     }
 
     @Override
-    public ResponseEntity<Marca> findById(Long id) {
+    public ResponseEntity<MarcaDTO> findById(Long id) {
         Optional<Marca> marca = marcaRepository.findById(id);
         if (marca.isPresent()) {
-            return ResponseEntity.ok(marca.get());
+            MarcaDTO marcaDTO = new MarcaDTOMapper().mapToDTO(marca.get());
+            return ResponseEntity.ok(marcaDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<List<Marca>> findAll() {
+    public ResponseEntity<List<MarcaDTO>> findAll() {
         List<Marca> marcas = marcaRepository.findAll();
         if (!marcas.isEmpty()) {
-            return ResponseEntity.ok(marcas);
+            List<MarcaDTO> listDTOs = marcas.stream().map(new MarcaDTOMapper()::mapToDTO).toList();
+            return ResponseEntity.ok(listDTOs);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<Boolean> save(Marca entity) {
+    public ResponseEntity<Boolean> save(MarcaDTO entity) {
         if (entity != null) {
-            entity.setId(null);
-            marcaRepository.save(entity);
+            Marca marca = new MarcaDTOMapper().mapToEntity(entity);
+            marcaRepository.save(marca);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.badRequest().build();
@@ -58,10 +60,12 @@ public class MarcaServiceImpl implements MarcaService {
     }
 
     @Override
-    public ResponseEntity<Boolean> update(Marca entity) {
-        Optional<Marca> marca = marcaRepository.findById(entity.getId());
+    public ResponseEntity<Boolean> update(MarcaDTO entity, Long id) {
+        Optional<Marca> marca = marcaRepository.findById(id);
         if (marca.isPresent()) {
-            marcaRepository.save(marca.get());
+            Marca marcaEntity = new MarcaDTOMapper().mapToEntity(entity);
+            marcaEntity.setId(id);
+            marcaRepository.save(marcaEntity);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.notFound().build();

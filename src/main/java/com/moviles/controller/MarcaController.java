@@ -19,12 +19,12 @@ public class MarcaController {
     }
 
     @GetMapping("find")
-    public ResponseEntity<List<Marca>> get() {
+    public ResponseEntity<List<MarcaDTO>> get() {
         return marcaServiceImpl.findAll();
     }
 
     @GetMapping("findById")
-    public ResponseEntity<Marca> getById(@RequestParam Long id) {
+    public ResponseEntity<MarcaDTO> getById(@RequestParam Long id) {
         return marcaServiceImpl.findById(id);
     }
 
@@ -34,12 +34,12 @@ public class MarcaController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Boolean> post(@RequestBody Marca marca) {
+    public ResponseEntity<Boolean> post(@RequestBody MarcaDTO marca) {
         return marcaServiceImpl.save(marca);
     }
 
     @PutMapping("update")
-    public ResponseEntity<Boolean> put(@RequestBody Marca marca) {
-        return marcaServiceImpl.update(marca);
+    public ResponseEntity<Boolean> put(@RequestBody MarcaDTO marca, @RequestParam Long id) {
+        return marcaServiceImpl.update(marca, id);
     }
 }

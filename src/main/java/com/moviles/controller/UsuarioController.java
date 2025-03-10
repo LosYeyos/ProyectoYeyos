@@ -1,5 +1,6 @@
 package com.moviles.controller;
 
+import com.moviles.model.dtos.UsuarioDTO;
 import com.moviles.model.dtos.UsuarioEmailDTO;
 import com.moviles.model.entities.Usuario;
 import com.moviles.services.implementation.UsuarioServiceImpl;
@@ -20,8 +21,9 @@ public class UsuarioController {
 
     //TODO: Implementar los métodos de la API REST para Usuario
     @GetMapping("/all")
-    public ResponseEntity<List<Usuario>> getAll() {
+    public ResponseEntity<List<UsuarioDTO>> getAll() {
         return userService.findAll();
     }
+
 
 }

@@ -5,9 +5,14 @@ import com.moviles.model.entities.Marca;
 
 public class MarcaDTOMapper implements Mapper<MarcaDTO, Marca> {
     @Override
-    public Marca map(MarcaDTO dto) {
+    public Marca mapToEntity(MarcaDTO dto) {
         Marca marca = new Marca();
         marca.setNombre(dto.nombre());
         return marca;
+    }
+
+    @Override
+    public MarcaDTO mapToDTO(Marca target) {
+        return new MarcaDTO(target.getNombre());
     }
 }

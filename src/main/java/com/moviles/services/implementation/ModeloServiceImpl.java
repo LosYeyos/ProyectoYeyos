@@ -1,7 +1,9 @@
 package com.moviles.services.implementation;
 
+import com.moviles.mappers.MarcaDTOMapper;
 import com.moviles.mappers.ModeloDTOMapper;
 import com.moviles.model.dtos.ModeloDTO;
+import com.moviles.model.entities.Marca;
 import com.moviles.model.entities.Modelo;
 import com.moviles.repositories.ModeloRepository;
 import com.moviles.services.interfaces.ModeloService;
@@ -20,28 +22,30 @@ public class ModeloServiceImpl implements ModeloService {
     }
 
     @Override
-    public ResponseEntity<Modelo> findById(Long id) {
+    public ResponseEntity<ModeloDTO> findById(Long id) {
         Optional<Modelo> modelo = modeloRepository.findById(id);
         if (modelo.isPresent()) {
-            return ResponseEntity.ok(modelo.get());
+            ModeloDTO modeloDTO = new ModeloDTOMapper().mapToDTO(modelo.get());
+            return ResponseEntity.ok(modeloDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<List<Modelo>> findAll() {
+    public ResponseEntity<List<ModeloDTO>> findAll() {
         List<Modelo> modelos = modeloRepository.findAll();
         if (!modelos.isEmpty()) {
-            return ResponseEntity.ok(modelos);
+            List<ModeloDTO> listDTOs = modelos.stream().map(new ModeloDTOMapper()::mapToDTO).toList();
+            return ResponseEntity.ok(listDTOs);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<Boolean> save(Modelo entity) {
+    public ResponseEntity<Boolean> save(ModeloDTO entity) {
         if (entity != null) {
-            entity.setId(null);
-            modeloRepository.save(entity);
+            Modelo modelo = new ModeloDTOMapper().mapToEntity(entity);
+            modeloRepository.save(modelo);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.badRequest().build();
@@ -58,10 +62,12 @@ public class ModeloServiceImpl implements ModeloService {
     }
 
     @Override
-    public ResponseEntity<Boolean> update(Modelo entity) {
-        Optional<Modelo> modelo = modeloRepository.findById(entity.getId());
+    public ResponseEntity<Boolean> update(ModeloDTO entity, Long id) {
+        Optional<Modelo> modelo = modeloRepository.findById(id);
         if (modelo.isPresent()) {
-            modeloRepository.save(modelo.get());
+            Modelo modeloEntity = new ModeloDTOMapper().mapToEntity(entity);
+            modeloEntity.setId(id);
+            modeloRepository.save(modeloEntity);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.notFound().build();

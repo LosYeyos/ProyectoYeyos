@@ -1,5 +1,7 @@
 package com.moviles.services.implementation;
 
+import com.moviles.mappers.MovilDTOMapper;
+import com.moviles.model.dtos.MovilDTO;
 import com.moviles.model.entities.Movil;
 import com.moviles.repositories.MovilRepository;
 import com.moviles.services.interfaces.MovilService;
@@ -18,30 +20,31 @@ public class MovilServiceImpl implements MovilService {
     }
 
     @Override
-    public ResponseEntity<Movil> findById(Long id) {
+    public ResponseEntity<MovilDTO> findById(Long id) {
         Optional<Movil> byId = movilRepository.findById(id);
         if (byId.isPresent()){
-            return ResponseEntity.ok(byId.get());
+            return ResponseEntity.ok(new MovilDTOMapper().mapToDTO(byId.get()));
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<List<Movil>> findAll() {
+    public ResponseEntity<List<MovilDTO>> findAll() {
         List<Movil> all = movilRepository.findAll();
         if (!all.isEmpty()){
-            return ResponseEntity.ok(all);
+            List<MovilDTO> listDTOs = all.stream().map(new MovilDTOMapper()::mapToDTO).toList();
+            return ResponseEntity.ok(listDTOs);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<Boolean> save(Movil entity) {
-        if (movilRepository.findAll().contains(entity)){
+    public ResponseEntity<Boolean> save(MovilDTO entity) {
+        Movil movil = new MovilDTOMapper().mapToEntity(entity);
+        if (movilRepository.findAll().contains(movil)){
             return ResponseEntity.badRequest().build();
         }
-        entity.setId(null);
-        movilRepository.save(entity);
+        movilRepository.save(movil);
         return ResponseEntity.ok(true);
     }
 
@@ -56,10 +59,12 @@ public class MovilServiceImpl implements MovilService {
     }
 
     @Override
-    public ResponseEntity<Boolean> update(Movil entity) {
-        Optional<Movil> byId = movilRepository.findById(entity.getId());
+    public ResponseEntity<Boolean> update(MovilDTO entity, Long id) {
+        Optional<Movil> byId = movilRepository.findById(id);
         if (byId.isPresent()){
-            movilRepository.save(entity);
+            Movil movil = new MovilDTOMapper().mapToEntity(entity);
+            movil.setId(id);
+            movilRepository.save(movil);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.notFound().build();

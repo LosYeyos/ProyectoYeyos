@@ -1,6 +1,8 @@
 package com.moviles.services.implementation;
 
 import com.moviles.mappers.UsuarioDTOMapper;
+import com.moviles.mappers.UsuarioEmailDTOMapper;
+import com.moviles.model.dtos.UsuarioDTO;
 import com.moviles.model.dtos.UsuarioEmailDTO;
 import com.moviles.model.entities.Usuario;
 import com.moviles.repositories.UsuarioRepository;
@@ -22,30 +24,32 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public ResponseEntity<Usuario> findById(Long id) {
+    public ResponseEntity<UsuarioDTO> findById(Long id) {
         Optional<Usuario> byId = usuarioRepository.findById(id);
         if (byId.isPresent()){
-            return ResponseEntity.ok(byId.get());
+            UsuarioDTO usuarioDTO = new UsuarioDTOMapper().mapToDTO(byId.get());
+            return ResponseEntity.ok(usuarioDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<List<Usuario>> findAll() {
+    public ResponseEntity<List<UsuarioDTO>> findAll() {
         List<Usuario> all = usuarioRepository.findAll();
         if (!all.isEmpty()){
-            return ResponseEntity.ok(all);
+            List<UsuarioDTO> listDTOs = all.stream().map(new UsuarioDTOMapper()::mapToDTO).toList();
+            return ResponseEntity.ok(listDTOs);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<Boolean> save(Usuario entity) {
-        if (usuarioRepository.findAll().contains(entity)){
+    public ResponseEntity<Boolean> save(UsuarioDTO entity) {
+        Usuario usuario = new UsuarioDTOMapper().mapToEntity(entity);
+        if (usuarioRepository.findAll().contains(usuario)){
             return ResponseEntity.badRequest().build();
         }
-        entity.setId(null);
-        usuarioRepository.save(entity);
+        usuarioRepository.save(usuario);
         return ResponseEntity.ok(true);
     }
 
@@ -60,10 +64,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public ResponseEntity<Boolean> update(Usuario entity) {
-        Optional<Usuario> byId = usuarioRepository.findById(entity.getId());
+    public ResponseEntity<Boolean> update(UsuarioDTO entity, Long id) {
+        Optional<Usuario> byId = usuarioRepository.findById(id);
         if (byId.isPresent()){
-            usuarioRepository.save(entity);
+            Usuario usuario = new UsuarioDTOMapper().mapToEntity(entity);
+            usuario.setId(id);
+            usuarioRepository.save(usuario);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.notFound().build();

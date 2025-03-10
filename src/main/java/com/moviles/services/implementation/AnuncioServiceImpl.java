@@ -46,7 +46,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public ResponseEntity<Boolean> update(Anuncio entity) {
+    public ResponseEntity<Boolean> update(Anuncio entity, Long id) {
         return null;
     }
 }

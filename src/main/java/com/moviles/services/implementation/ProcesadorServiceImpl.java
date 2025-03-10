@@ -1,5 +1,7 @@
 package com.moviles.services.implementation;
 
+import com.moviles.mappers.ProcesadorDTOMapper;
+import com.moviles.model.dtos.ProcesadorDTO;
 import com.moviles.model.entities.Procesador;
 import com.moviles.repositories.ProcesadorRepository;
 import com.moviles.services.interfaces.ProcesadorService;
@@ -18,28 +20,30 @@ public class ProcesadorServiceImpl implements ProcesadorService {
     }
 
     @Override
-    public ResponseEntity<Procesador> findById(Long id) {
+    public ResponseEntity<ProcesadorDTO> findById(Long id) {
         Optional<Procesador> procesador = procesadorRepository.findById(id);
         if (procesador.isPresent()) {
-            return ResponseEntity.ok(procesador.get());
+            ProcesadorDTO procesadorDTO = new ProcesadorDTOMapper().mapToDTO(procesador.get());
+            return ResponseEntity.ok(procesadorDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<List<Procesador>> findAll() {
+    public ResponseEntity<List<ProcesadorDTO>> findAll() {
         List<Procesador> procesadores = procesadorRepository.findAll();
         if (!procesadores.isEmpty()) {
-            return ResponseEntity.ok(procesadores);
+            List<ProcesadorDTO> procesadoresDTO = procesadores.stream().map(new ProcesadorDTOMapper()::mapToDTO).toList();
+            return ResponseEntity.ok(procesadoresDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<Boolean> save(Procesador entity) {
+    public ResponseEntity<Boolean> save(ProcesadorDTO entity) {
         if (entity != null) {
-            entity.setId(null);
-            Procesador procesador = procesadorRepository.save(entity);
+            Procesador procesador = new ProcesadorDTOMapper().mapToEntity(entity);
+            procesadorRepository.save(procesador);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.badRequest().build();
@@ -56,10 +60,12 @@ public class ProcesadorServiceImpl implements ProcesadorService {
     }
 
     @Override
-    public ResponseEntity<Boolean> update(Procesador entity) {
-        Optional<Procesador> procesador = procesadorRepository.findById(entity.getId());
+    public ResponseEntity<Boolean> update(ProcesadorDTO entity, Long id) {
+        Optional<Procesador> procesador = procesadorRepository.findById(id);
         if (procesador.isPresent()) {
-            Procesador procesadorUpdated = procesadorRepository.save(entity);
+            Procesador procesadorEntity = new ProcesadorDTOMapper().mapToEntity(entity);
+            procesadorEntity.setId(id);
+            procesadorRepository.save(procesadorEntity);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.notFound().build();

@@ -1,5 +1,6 @@
 package com.moviles.controller;
 
+import com.moviles.model.dtos.TecnologiaPantallaDTO;
 import com.moviles.model.entities.TecnologiaPantalla;
 import com.moviles.services.implementation.TecnologiaPantallaServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,12 @@ public class TecnologiaPantallaController {
     }
 
     @GetMapping("find")
-    public ResponseEntity<List<TecnologiaPantalla>> get() {
+    public ResponseEntity<List<TecnologiaPantallaDTO>> get() {
         return pantallaServiceImpl.findAll();
     }
 
     @GetMapping("findById")
-    public ResponseEntity<TecnologiaPantalla> getById(@RequestParam Long id) {
+    public ResponseEntity<TecnologiaPantallaDTO> getById(@RequestParam Long id) {
         return pantallaServiceImpl.findById(id);
     }
 
@@ -33,12 +34,12 @@ public class TecnologiaPantallaController {
     }
 
     @PostMapping("crear")
-    public ResponseEntity<Boolean> post(@RequestBody TecnologiaPantalla tecnologiaPantalla) {
+    public ResponseEntity<Boolean> post(@RequestBody TecnologiaPantallaDTO tecnologiaPantalla) {
         return pantallaServiceImpl.save(tecnologiaPantalla);
     }
 
     @PutMapping("update")
-    public ResponseEntity<Boolean> put(@RequestBody TecnologiaPantalla tecnologiaPantalla) {
-        return pantallaServiceImpl.update(tecnologiaPantalla);
+    public ResponseEntity<Boolean> put(@RequestBody TecnologiaPantallaDTO tecnologiaPantalla, @RequestParam Long id) {
+        return pantallaServiceImpl.update(tecnologiaPantalla, id);
     }
 }

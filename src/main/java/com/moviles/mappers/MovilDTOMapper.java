@@ -10,11 +10,11 @@ public class MovilDTOMapper implements Mapper<MovilDTO, Movil> {
     private final TecnologiaPantallaDTOMapper tecnologiaPantallaDTOMapper = new TecnologiaPantallaDTOMapper();
 
     @Override
-    public Movil map(MovilDTO dto) {
+    public Movil mapToEntity(MovilDTO dto) {
         Movil movil = new Movil();
-        movil.setModelo(modeloDTOMapper.map(dto.modelo()));
-        movil.setProcesador(procesadorDTOMapper.map(dto.procesador()));
-        movil.setTecnologiaPantalla(tecnologiaPantallaDTOMapper.map(dto.tecnologiaPantalla()));
+        movil.setModelo(modeloDTOMapper.mapToEntity(dto.modelo()));
+        movil.setProcesador(procesadorDTOMapper.mapToEntity(dto.procesador()));
+        movil.setTecnologiaPantalla(tecnologiaPantallaDTOMapper.mapToEntity(dto.tecnologiaPantalla()));
         movil.setAlmacenamiento(dto.almacenamiento());
         movil.setTamanoPantalla(dto.tamanoPantalla());
         movil.setRAM(dto.RAM());
@@ -26,5 +26,11 @@ public class MovilDTOMapper implements Mapper<MovilDTO, Movil> {
         movil.setPrecio(dto.precio());
         movil.setFechaLanzamiento(dto.fechaLanzamiento());
         return movil;
+    }
+
+    @Override
+    public MovilDTO mapToDTO(Movil target) {
+        MovilDTO movilDTO = new MovilDTO(modeloDTOMapper.mapToDTO(target.getModelo()), procesadorDTOMapper.mapToDTO(target.getProcesador()), tecnologiaPantallaDTOMapper.mapToDTO(target.getTecnologiaPantalla()), target.getAlmacenamiento(), target.getTamanoPantalla(), target.getRAM(), target.getDimensiones(), target.getPeso(), target.getCapacidadPantalla(), target.getBateria(), target.hasNFC(), target.getPrecio(), target.getFechaLanzamiento());
+        return movilDTO;
     }
 }

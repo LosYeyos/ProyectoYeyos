@@ -1,5 +1,6 @@
 package com.moviles.controller;
 
+import com.moviles.model.dtos.ProcesadorDTO;
 import com.moviles.model.entities.Procesador;
 import com.moviles.services.implementation.ProcesadorServiceImpl;
 import com.moviles.services.interfaces.ProcesadorService;
@@ -18,11 +19,11 @@ public class ProcesadorController {
     }
 
     @GetMapping("find")
-    public ResponseEntity<List<Procesador>> get() {
+    public ResponseEntity<List<ProcesadorDTO>> get() {
         return procesadorServiceImpl.findAll();
     }
     @GetMapping("findById")
-    public ResponseEntity<Procesador> getById(@RequestParam Long id) {
+    public ResponseEntity<ProcesadorDTO> getById(@RequestParam Long id) {
         return procesadorServiceImpl.findById(id);
     }
 
@@ -32,12 +33,12 @@ public class ProcesadorController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Boolean> post(@RequestBody Procesador procesador) {
+    public ResponseEntity<Boolean> post(@RequestBody ProcesadorDTO procesador) {
         return procesadorServiceImpl.save(procesador);
     }
 
     @PutMapping("update")
-    public ResponseEntity<Boolean> put(@RequestBody Procesador updateObject) {
-        return procesadorServiceImpl.update(updateObject);
+    public ResponseEntity<Boolean> put(@RequestBody ProcesadorDTO updateObject, @RequestParam Long id) {
+        return procesadorServiceImpl.update(updateObject, id);
     }
 }

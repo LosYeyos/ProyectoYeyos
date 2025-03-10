@@ -1,5 +1,6 @@
 package com.moviles.controller;
 
+import com.moviles.model.dtos.MovilDTO;
 import com.moviles.model.entities.Movil;
 import com.moviles.services.implementation.MovilServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,12 @@ public class MovilController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<Movil>> getAll() {
+    public ResponseEntity<List<MovilDTO>> getAll() {
         return movilService.findAll();
     }
 
     @GetMapping("find")
-    public ResponseEntity<List<Movil>> get() {
+    public ResponseEntity<List<MovilDTO>> get() {
         return ResponseEntity.notFound().build();
     }
 
@@ -32,12 +33,12 @@ public class MovilController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Boolean> post(@RequestBody Movil movil) {
+    public ResponseEntity<Boolean> post(@RequestBody MovilDTO movil) {
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("update")
-    public ResponseEntity<Boolean> put(@RequestBody Movil movil) {
+    public ResponseEntity<Boolean> put(@RequestBody MovilDTO movil, @RequestParam Long key) {
         return ResponseEntity.notFound().build();
     }
 }

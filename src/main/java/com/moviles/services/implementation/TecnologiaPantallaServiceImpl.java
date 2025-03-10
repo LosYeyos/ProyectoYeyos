@@ -1,5 +1,7 @@
 package com.moviles.services.implementation;
 
+import com.moviles.mappers.TecnologiaPantallaDTOMapper;
+import com.moviles.model.dtos.TecnologiaPantallaDTO;
 import com.moviles.model.entities.TecnologiaPantalla;
 import com.moviles.repositories.TecnologiaPantallaRepository;
 import com.moviles.services.interfaces.TecnologiaPantallaService;
@@ -18,28 +20,30 @@ public class TecnologiaPantallaServiceImpl implements TecnologiaPantallaService 
     }
 
     @Override
-    public ResponseEntity<TecnologiaPantalla> findById(Long id) {
+    public ResponseEntity<TecnologiaPantallaDTO> findById(Long id) {
         Optional<TecnologiaPantalla> byId = tecnologiaPantallaRepository.findById(id);
         if (byId.isPresent()) {
-            return ResponseEntity.ok(byId.get());
+            TecnologiaPantallaDTO tecnologiaPantallaDTO = new TecnologiaPantallaDTOMapper().mapToDTO(byId.get());
+            return ResponseEntity.ok(tecnologiaPantallaDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<List<TecnologiaPantalla>> findAll() {
+    public ResponseEntity<List<TecnologiaPantallaDTO>> findAll() {
         List<TecnologiaPantalla> all = tecnologiaPantallaRepository.findAll();
         if (!all.isEmpty()) {
-            return ResponseEntity.ok(all);
+            List<TecnologiaPantallaDTO> listDTOs = all.stream().map(new TecnologiaPantallaDTOMapper()::mapToDTO).toList();
+            return ResponseEntity.ok(listDTOs);
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public ResponseEntity<Boolean> save(TecnologiaPantalla entity) {
+    public ResponseEntity<Boolean> save(TecnologiaPantallaDTO entity) {
         if (entity != null) {
-            entity.setId(null);
-            TecnologiaPantalla save = tecnologiaPantallaRepository.save(entity);
+            TecnologiaPantalla tecnologiaPantalla = new TecnologiaPantallaDTOMapper().mapToEntity(entity);
+            tecnologiaPantallaRepository.save(tecnologiaPantalla);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.badRequest().build();
@@ -56,10 +60,12 @@ public class TecnologiaPantallaServiceImpl implements TecnologiaPantallaService 
     }
 
     @Override
-    public ResponseEntity<Boolean> update(TecnologiaPantalla entity) {
-        Optional<TecnologiaPantalla> byId = tecnologiaPantallaRepository.findById(entity.getId());
+    public ResponseEntity<Boolean> update(TecnologiaPantallaDTO entity, Long id) {
+        Optional<TecnologiaPantalla> byId = tecnologiaPantallaRepository.findById(id);
         if (byId.isPresent()) {
-            tecnologiaPantallaRepository.save(entity);
+            TecnologiaPantalla tecnologiaPantalla = new TecnologiaPantallaDTOMapper().mapToEntity(entity);
+            tecnologiaPantalla.setId(id);
+            tecnologiaPantallaRepository.save(tecnologiaPantalla);
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.notFound().build();

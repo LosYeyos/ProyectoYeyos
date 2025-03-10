@@ -7,5 +7,5 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface MarcaService extends CrudInterface<Marca, Long> {
+public interface MarcaService extends CrudInterface<MarcaDTO, Long> {
 }

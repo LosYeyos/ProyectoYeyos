@@ -6,7 +6,7 @@ import com.moviles.model.entities.Procesador;
 public class ProcesadorDTOMapper implements Mapper<ProcesadorDTO, Procesador> {
 
     @Override
-    public Procesador map(ProcesadorDTO dto) {
+    public Procesador mapToEntity(ProcesadorDTO dto) {
         Procesador procesador = new Procesador();
         procesador.setReferencia(dto.referencia());
         procesador.setNombre(dto.nombre());
